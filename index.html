@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Snake Game!</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #000;
+        min-height: 100vh;
+      }
+      canvas {
+        position: relative;
+        height: 25em;
+        border: 0.1em solid #fff;
+        transition: background 0.1s ease-out;
+        z-index: 1000;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas> </canvas>
+    <div class="points"></div>
+    <script src="util.js"></script>
+    <script src="snake.js"></script>
+    <script src="generator.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
