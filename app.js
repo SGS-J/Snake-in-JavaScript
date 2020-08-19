@@ -1,19 +1,24 @@
 class Game {
   constructor() {}
+
   start(startCB) {
     startCB();
   }
-  gameOver(endCB) {
-    endCB();
+
+  gameOver() {
+    restartCanvas();
+    snake = new Snake();
+    generator = new FoodGenerator();
+    this.start(init);
   }
 }
 
+let generator = new FoodGenerator();
+let snake = new Snake();
+let headImg = new Image();
 const game = new Game();
-const generator = new FoodGenerator();
-const snake = new Snake();
 const canvas = document.querySelector("canvas");
 const pen = canvas.getContext("2d");
-pen.fillStyle = '#fff';
 
 /* KEYCODES: */
 const VK_UP = 38;
@@ -27,13 +32,27 @@ const remove = (x = 0, y = 0) => {
   pen.clearRect(x, y, 10, 10);
 };
 
-const draw = (x = 0, y = 0, type = "snake") => {
-  pen.fillStyle = type === 'snake' ? '#fff' : '#1f1'; 
-  pen.fillRect(x, y, 10, 10);
+const draw = (x = 0, y = 0, type = "parts") => {
+  pen.beginPath();
+  if(type === "parts") {
+    pen.fillStyle = "#fff";
+  }
+  if(type === "head") {
+    pen.fillStyle = "#00f";
+  }
+  if(type === "food") {
+    pen.fillStyle = "#f11";
+  }
+  pen.arc(x + 5, y + 5, 5, 0, Math.PI * 2, true);
+  pen.fill();
 };
 
+const restartCanvas = () => {
+  pen.clearRect(0, 0, canvas.width, canvas.height);
+}
+
 const init = () => {
-  //snake.begin();
+  snake.begin();
   generator.begin();
   document.body.addEventListener("keydown", (e) => {
     switch (e.keyCode) {
@@ -52,6 +71,7 @@ const init = () => {
     }
   });
 };
+
 /* END FUNCTIONS */
 
 game.start(init);

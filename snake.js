@@ -12,6 +12,7 @@ class Snake {
       { x: 0, y: 0 },
       { x: 0, y: 0 },
       { x: 0, y: 0 },
+      { x: 0, y: 0 },
     ];
     this.size = this.body.length;
   }
@@ -19,6 +20,7 @@ class Snake {
   begin() {
     this.body = [
       { x: 10, y: 0 },
+      { x: 0, y: 0 },
       { x: 0, y: 0 },
       { x: 0, y: 0 },
     ];
@@ -38,23 +40,32 @@ class Snake {
   }
 
   move() {
-    setInterval(() => {
+    const temp = setInterval(() => {
       this.body[0].x += this.weightX;
       this.body[0].y += this.weightY;
       const head = { x: this.body[0].x, y: this.body[0].y };
+      const parts = {x: this.body[1].x, y: this.body[1].y};
       const tail = {
         x: this.body[this.size - 1].x,
         y: this.body[this.size - 1].y,
       };
-      if(this.ate()) {
-        this.grow();
-        generator.generate();
+
+      if (this.isCrashed()) {
+        clearInterval(temp);
+        game.gameOver();
+      } else {
+        if (this.ate()) {
+          this.grow();
+          generator.generate();
+        }
+
+        draw(head.x, head.y, "head");
+        draw(parts.x, parts.y , "parts");
+        remove(tail.x, tail.y);
+        this.body.unshift({ x: head.x, y: head.y });
+        this.body.pop();
       }
-      draw(head.x, head.y);
-      remove(tail.x, tail.y);
-      this.body.unshift({ x: head.x, y: head.y });
-      this.body.pop();
-    }, 200);
+    }, 100);
   }
 
   dir(direction) {
@@ -92,5 +103,24 @@ class Snake {
     ++this.size;
   }
 
-  
+  isCrashed() {
+    let crash = false;
+    const head = { x: this.body[0].x, y: this.body[0].y };
+    // First case: the head crash on the body
+    for (let i = 2; i < this.size; i++) {
+      if (head.x === this.body[i].x && head.y === this.body[i].y) {
+        crash = true;
+        break;
+      }
+    }
+    // Second case: the head crash on the wall
+    if(head.x < 0 || head.x >= canvas.width) {
+      crash = true;
+    }
+    if(head.y < 0 || head.y >= canvas.height) {
+      crash = true;
+    }
+
+    return crash;
+  }
 }
