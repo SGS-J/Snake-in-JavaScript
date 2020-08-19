@@ -56,6 +56,7 @@ class Snake {
       } else {
         if (this.ate()) {
           this.grow();
+          game.addScore();
           generator.generate();
         }
 

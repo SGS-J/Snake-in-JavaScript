@@ -1,23 +1,31 @@
 class Game {
-  constructor() {}
+  constructor() {
+    this.score = 0;
+  }
 
   start(startCB) {
     startCB();
+  }
+
+  addScore() {
+    this.score++;
+    scorePanel.textContent = "Score: " + this.score;
   }
 
   gameOver() {
     restartCanvas();
     snake = new Snake();
     generator = new FoodGenerator();
+    this.score = 0;
     this.start(init);
   }
 }
 
 let generator = new FoodGenerator();
 let snake = new Snake();
-let headImg = new Image();
 const game = new Game();
 const canvas = document.querySelector("canvas");
+const scorePanel = document.querySelector(".score");
 const pen = canvas.getContext("2d");
 
 /* KEYCODES: */
@@ -35,13 +43,13 @@ const remove = (x = 0, y = 0) => {
 const draw = (x = 0, y = 0, type = "parts") => {
   pen.beginPath();
   if(type === "parts") {
-    pen.fillStyle = "#fff";
+    pen.fillStyle = "#0a0";
   }
   if(type === "head") {
-    pen.fillStyle = "#00f";
+    pen.fillStyle = "#070";
   }
   if(type === "food") {
-    pen.fillStyle = "#f11";
+    pen.fillStyle = "#a00";
   }
   pen.arc(x + 5, y + 5, 5, 0, Math.PI * 2, true);
   pen.fill();
@@ -52,6 +60,7 @@ const restartCanvas = () => {
 }
 
 const init = () => {
+  scorePanel.textContent = "Score: ";
   snake.begin();
   generator.begin();
   document.body.addEventListener("keydown", (e) => {

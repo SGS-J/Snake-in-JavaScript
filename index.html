@@ -2,32 +2,45 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="icon.svg">
     <title>Snake Game!</title>
     <style>
       * {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
+        font-family: 'Press Start 2P', cursive;
+        color: #040;
       }
       body {
         display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
-        background: #000;
+        background: #0a0d;
         min-height: 100vh;
       }
       canvas {
         position: relative;
-        height: 25em;
-        border: 0.1em solid #fff;
-        transition: background 0.1s ease-out;
-        z-index: 1000;
+        height: 60%;
+        width: 60%;
+        background: #5f5e;
+        outline: 1em double #040;
+        box-shadow: 0 0 2em .7em #050d, 0 0 2em .7em #050d;
+      }
+      .score {
+        font-size: 1.7em;
+        margin: 1em 0;
       }
     </style>
   </head>
   <body>
+    <div class="score"></div>
     <canvas> </canvas>
-    <div class="points"></div>
     <script src="util.js"></script>
     <script src="snake.js"></script>
     <script src="generator.js"></script>
