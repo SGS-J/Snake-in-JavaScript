@@ -1,0 +1,27 @@
+* {
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+   font-family: 'Press Start 2P', cursive;
+   color: #040;
+ }
+ body {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   background: #0a0d;
+   min-height: 100vh;
+ }
+ canvas {
+   position: relative;
+   height: 60%;
+   width: 60%;
+   background: #5f5e;
+   outline: 1em double #040;
+   box-shadow: 0 0 2em .7em #050d, 0 0 2em .7em #050d;
+ }
+ .score {
+   font-size: 1.7em;
+   margin: 1em 0;
+ }
