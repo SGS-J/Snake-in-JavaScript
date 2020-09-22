@@ -28,13 +28,6 @@ const canvas = document.querySelector("canvas");
 const scorePanel = document.querySelector(".score");
 const pen = canvas.getContext("2d");
 
-/* KEYCODES: */
-const VK_UP = 38;
-const VK_DOWN = 40;
-const VK_RIGHT = 39;
-const VK_LEFT = 37;
-/* END KEYCODES */
-
 /* FUNCTIONS */
 const remove = (x = 0, y = 0) => {
   pen.clearRect(x, y, 10, 10);
@@ -64,17 +57,17 @@ const init = () => {
   snake.begin();
   generator.begin();
   document.body.addEventListener("keydown", (e) => {
-    switch (e.keyCode) {
-      case VK_UP:
+    switch (e.key) {
+      case 'ArrowUp':
         snake.dir(UP);
         break;
-      case VK_DOWN:
+      case 'ArrowDown':
         snake.dir(DOWN);
         break;
-      case VK_LEFT:
+      case 'ArrowLeft':
         snake.dir(LEFT);
         break;
-      case VK_RIGHT:
+      case 'ArrowRight':
         snake.dir(RIGHT);
         break;
     }
